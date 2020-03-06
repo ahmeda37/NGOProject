@@ -44,4 +44,54 @@ public class Cart {
 	@Column(name="cart_processed")
 	@NotNull
 	private boolean processed;
+
+	public long getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(long cartId) {
+		this.cartId = cartId;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Set<Gift> getGifts() {
+		return gifts;
+	}
+
+	public void setGifts(Set<Gift> gifts) {
+		this.gifts = gifts;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public float getTotal() {
+		return total;
+	}
+
+	public void setTotal(float total) {
+		this.total = total;
+	}
+
+	public boolean isProcessed() {
+		return processed;
+	}
+
+	public void setProcessed(boolean processed) {
+		this.processed = processed;
+	}
+	
+	
 }

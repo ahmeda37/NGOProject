@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Header</title>
+</head>
+<body>
+<div class="header" th:fragment="header">
+<nav class="navbar primary-color off-white-text">
+  <span class="navbar-brand mb-0 h1"><em>NGO Donations</em></span>
+</nav>
+</div>
+
+<div class="menu menu-side-bar" th:fragment="menu-admin">
+	<div class="container">
+		<br>
+		<h2 class="text-center"><em>Menu</em></h2>
+		<br>
+		<h3><em>User Management</em></h3>
+		<h3><em>Donation Management</em></h3>
+		<h3><em>User View</em></h3>
+	</div>
+</div>
+
+<div class="menu menu-side-bar" th:fragment="menu-user">
+	<div class="container">
+		<br>
+		<h2 class="text-center"><em>Menu</em></h2>
+		<br>
+		<h3><em>User View</em></h3>
+	</div>
+</div>
+
+</body>
+</html>

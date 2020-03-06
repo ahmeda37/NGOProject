@@ -24,4 +24,29 @@ public class DonationType {
 	@Column(name="has_recurring_option")
 	@NotNull
 	private boolean hasRecurringOption;
+
+	public long getDonationTypeId() {
+		return donationTypeId;
+	}
+
+	public void setDonationTypeId(long donationTypeId) {
+		this.donationTypeId = donationTypeId;
+	}
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+
+	public boolean isHasRecurringOption() {
+		return hasRecurringOption;
+	}
+
+	public void setHasRecurringOption(boolean hasRecurringOption) {
+		this.hasRecurringOption = hasRecurringOption;
+	}
+	
 }

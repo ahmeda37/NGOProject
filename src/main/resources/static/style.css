@@ -1,0 +1,23 @@
+@charset "ISO-8859-1";
+
+html, body{
+	height: 100%;
+}
+
+.primary-color{
+	background-color: #740F0F;
+}
+
+.off-white-text{
+	color: #FFFFF0 !important;
+}
+
+.full-height{
+	height: 100%;
+}
+
+.menu-side-bar{
+	height: 100%;
+	background-color: #E2B9B9;
+	color: #FFFFF0
+}

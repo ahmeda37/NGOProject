@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css">
+<title>Insert title here</title>
+</head>
+<body>
+
+<div th:insert="~{header :: header}"></div>
+<div class="row full-height">
+	<div class="col-4" th:insert="~{header :: menu-admin}" th:if="${admin == 'true'}">
+	</div>
+	<div class="col-4" th:insert="~{header :: menu-user}" th:if="${admin == 'false'}">
+	</div>
+</div>
+</body>
+</html>

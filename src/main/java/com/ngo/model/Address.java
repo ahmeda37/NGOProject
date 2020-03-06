@@ -105,5 +105,20 @@ public class Address {
 		this.urbanization = urbanization;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		try {
+			Address a2 = (Address)o;
+			if(a2.getId() == this.id) {
+				return true;
+			} else {
+				return false;
+			}
+		}catch(ClassCastException e) {
+			e.printStackTrace();
+			return false;
+		}		
+	}
+	
 	
 }
