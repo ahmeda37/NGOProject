@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity(name="carts")
 @Table(name="carts")
-public class Cart {
+public class Cart implements Comparable<Cart> {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -29,13 +29,11 @@ public class Cart {
 	@NotNull
 	private User user;
 	
-	@OneToMany
+	@OneToMany(fetch=FetchType.EAGER)
 	@JoinColumn(name="cart_id")
-	@NotNull
 	private Set<Gift> gifts;
 	
 	@Column(name="cart_date", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	@NotNull
 	private Date date;
 	
 	@Column(name="cart_total")
@@ -91,6 +89,17 @@ public class Cart {
 
 	public void setProcessed(boolean processed) {
 		this.processed = processed;
+	}
+
+	@Override
+	public int compareTo(Cart c) {
+		if (c.getCartId() == this.cartId) {
+			return 0;
+		} else if (c.getCartId() <= this.cartId) {
+			return 1000;
+		} else {
+			return -1000;
+		}
 	}
 	
 	//compareTo

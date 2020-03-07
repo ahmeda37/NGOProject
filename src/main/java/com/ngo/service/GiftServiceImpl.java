@@ -6,41 +6,41 @@ import java.util.TreeSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ngo.model.Cart;
-import com.ngo.repository.CartRepository;
+import com.ngo.model.Gift;
+import com.ngo.repository.GiftRepository;
 
-@Service("cartService")
-public class CartServiceImpl implements CartService {
+@Service("giftService")
+public class GiftServiceImpl implements GiftService {
 
 	@Autowired
-	CartRepository repo;
+	GiftRepository repo;
 	
 	@Override
-	public Cart getCartById(long id) {
+	public Gift getGiftById(long id) {
 		// TODO Auto-generated method stub
 		return repo.findById(id).get();
 	}
 
 	@Override
-	public Set<Cart> getCarts() {
+	public Set<Gift> getGifts() {
 		// TODO Auto-generated method stub
-		return new TreeSet<Cart>(repo.findAll());
+		return new TreeSet<Gift>(repo.findAll());
 	}
 
 	@Override
-	public void addCart(Cart c) {
+	public void addGift(Gift g) {
 		// TODO Auto-generated method stub
-		repo.save(c);
+		repo.save(g);
 	}
 
 	@Override
-	public void updateCart(Cart c) {
+	public void updateGift(Gift g) {
 		// TODO Auto-generated method stub
-		repo.save(c);
+		repo.save(g);
 	}
 
 	@Override
-	public void deleteCart(long id) {
+	public void deleteGift(long id) {
 		// TODO Auto-generated method stub
 		repo.deleteById(id);
 	}

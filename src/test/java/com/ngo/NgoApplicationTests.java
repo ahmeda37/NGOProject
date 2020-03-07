@@ -3,14 +3,18 @@ package com.ngo;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.ngo.model.Address;
+import com.ngo.model.Cart;
+import com.ngo.model.Gift;
 import com.ngo.model.User;
 import com.ngo.service.CartService;
+import com.ngo.service.GiftService;
 import com.ngo.service.UserService;
 
 @SpringBootTest
@@ -21,6 +25,9 @@ class NgoApplicationTests {
 	
 	@Autowired
 	CartService cartService;
+	
+	@Autowired
+	GiftService giftService;
 	
 	@Test
 	void contextLoads() {
@@ -98,5 +105,94 @@ class NgoApplicationTests {
 		user1.setAddress(address1);
 		
 		return user1;
+	}
+	
+	@Test
+	void insertCart() {
+		Cart c1 = createCart();
+		
+		cartService.addCart(c1);
+		
+		assertThat((Long)c1.getCartId() != null);
+		assertThat((Long)c1.getUser().getUserId() != null);
+		assertThat(c1.getGifts().size() != 0);
+	}
+	
+	@Test
+	void getCart() {
+		Cart c1 = createCart();
+		cartService.addCart(c1);
+		
+		c1 = cartService.getCartById(1);
+		
+		assertThat((Long)c1.getCartId() != null);
+		assertThat((Long)c1.getUser().getUserId() != null);
+		assertThat(c1.getGifts().size() != 0);
+		assertThat(c1.getGifts().iterator().next().getGiftAmount() == 100);
+	}
+	
+	@Test
+	void listOfCarts() {
+		Cart c1 = createCart();
+		cartService.addCart(c1);
+		
+		Cart c2 = createCart();
+		cartService.addCart(c2);
+		
+		Set<Cart> sc = cartService.getCarts();
+		assertThat(sc.iterator().next().compareTo(c1) == 0);
+		assertThat(sc.size() == 2);
+	}
+	
+	@Test
+	void deleteCart() {
+		Cart c1 = createCart();
+		cartService.addCart(c1);
+		cartService.deleteCart(1);
+		assertThat(c1 == null);
+	}
+	
+	@Test
+	void insertGift(){
+		Gift g = createGift();
+		giftService.addGift(g);
+		assertThat((Long)g.getGiftId() != null);
+	}
+	
+	@Test
+	void getGift() {
+		Gift g = createGift();
+		giftService.addGift(g);
+		Gift g2 = giftService.getGiftById(1);
+		assertThat(g.compareTo(g2) == 0);
+	}
+	@Test
+	void deleteGift() {
+		Gift g = createGift();
+		giftService.addGift(g);
+		giftService.deleteGift(1);
+		assertThat(g == null);
+	}
+	Cart createCart() {
+		User user1 = createUser();
+		userService.addUser(user1);
+		Gift g = createGift();
+		giftService.addGift(g);
+		Cart c = new Cart();
+		Set<Gift> gifts = new TreeSet<Gift>();
+		gifts.add(g);
+		c.setGifts(gifts);
+		c.setProcessed(true);
+		c.setTotal(100);
+		c.setUser(user1);
+		return c;
+	}
+	
+	Gift createGift() {
+		Gift g = new Gift();
+		g.setGiftAmount(100);
+		g.setQuantity(1);
+		g.setRecurring(true);
+		return g;
 	}
 }

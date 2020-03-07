@@ -13,16 +13,15 @@ import javax.validation.constraints.NotNull;
 
 @Entity(name="gifts")
 @Table(name="gifts")
-public class Gift {
+public class Gift implements Comparable<Gift> {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="gift_id")
 	private long giftId;
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="donation_type_id")
-	@NotNull
 	private DonationType donationType;
 	
 	@Column(name="gift_amount")
@@ -74,6 +73,18 @@ public class Gift {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	@Override
+	public int compareTo(Gift g) {
+		// TODO Auto-generated method stub
+		if (g.getGiftId() == this.giftId) {
+			return 0;
+		} else if (g.getGiftId() <= this.giftId) {
+			return 1000;
+		} else {
+			return -1000;
+		}
 	}
 	
 	//toString
