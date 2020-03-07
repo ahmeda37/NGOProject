@@ -76,5 +76,5 @@ public class Gift {
 		this.quantity = quantity;
 	}
 	
-	
+	//toString
 }

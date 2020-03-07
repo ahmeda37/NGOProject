@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<div class="donation" th:fragment="donation-list">
+	<div class="container">
+		<h2 class="user-header m-3"><em>Donation Management</em></h2>
+		<table class="table">
+			<thead class="primary-color off-white-text">
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Name</th>
+					<th scope="col">Date</th>
+ 					<th scope="col">Amount</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${donations.empty}">
+					<td>No donations found!</td>
+				</tr>
+				<tr th:each="donation: ${donations}">
+					<td th:if="${donation.processed} == true"><span th:text="${donation.cartId}"></span></td>
+					<td th:if="${donation.processed} == true"><span th:text="${donation.user.firstName}"></span></td>
+					<td th:if="${donation.processed} == true"><span th:text="${donation.date}"></span></td>
+					<td th:if="${donation.processed} == true"><span th:text="${donation.total}"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+</body>
+</html>

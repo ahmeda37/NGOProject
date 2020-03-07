@@ -26,6 +26,8 @@
 	</div>
 	<div class="col-8" th:insert="~{user :: edit-address-form}" th:if="${admin == 'true' and editAddress == 'true'}">
 	</div>
+	<div class="col-8" th:insert="~{donation :: donation-list}" th:if="${admin == 'true' and donationList == 'true'}">
+	</div>
 </div>
 </body>
 </html>

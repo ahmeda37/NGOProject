@@ -1,6 +1,6 @@
 package com.ngo.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -34,7 +34,7 @@ public class Cart {
 	@NotNull
 	private Set<Gift> gifts;
 	
-	@Column(name="cart_date")
+	@Column(name="cart_date", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	@NotNull
 	private Date date;
 	
@@ -93,5 +93,6 @@ public class Cart {
 		this.processed = processed;
 	}
 	
+	//compareTo
 	
 }
