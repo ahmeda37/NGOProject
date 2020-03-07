@@ -22,6 +22,10 @@
 	</div>
 	<div class="col-8" th:insert="~{user :: add-address-form}" th:if="${admin == 'true' and addAddress == 'true'}">
 	</div>
+	<div class="col-8" th:insert="~{user :: edit-user-form}" th:if="${admin == 'true' and editUser == 'true'}">
+	</div>
+	<div class="col-8" th:insert="~{user :: edit-address-form}" th:if="${admin == 'true' and editAddress == 'true'}">
+	</div>
 </div>
 </body>
 </html>

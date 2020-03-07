@@ -51,4 +51,40 @@ public class UserController {
 		model.addAttribute("addAddress", "true");
 		return "main";
 	}
+	
+	//-----------------------------------------------------------------------------
+
+	@GetMapping("/users/edit/{userId}")
+	public String renderEditUser(@PathVariable String userId, Model model) {
+		User u = userService.getUserById(Long.parseLong(userId));
+		model.addAttribute("admin", "true");
+		model.addAttribute("user", u);
+		model.addAttribute("editUser", "true");
+		return "main";
+	}
+	
+	@PostMapping("/users/edit/{userId}")
+	public String processEditUser(@ModelAttribute User user, @PathVariable String userId, Model model) {
+		Address a = userService.getUserById(Long.parseLong(userId)).getAddress();
+		user.setAddress(a);
+		userService.updateUser(user);
+		model.addAttribute("admin", "true");
+		model.addAttribute("user",user);
+		model.addAttribute("editAddress", "true");
+		return "main";
+	}
+	
+	@PostMapping("/users/editAddress/{userId}")
+	public String processEditUser(@ModelAttribute Address address, @PathVariable String userId, Model model) {
+		User u = userService.getUserById(Long.parseLong(userId));
+		u.setAddress(address);
+		userService.updateUser(u);
+		return "redirect:/users";
+	}
+	
+	@GetMapping("/users/delete/{userId}")
+	public String processDeleteUser(@PathVariable String userId) {
+		userService.deleteUser(Long.parseLong(userId));
+		return "redirect:/users";
+	}
 }
