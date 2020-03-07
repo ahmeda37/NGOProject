@@ -21,3 +21,10 @@ html, body{
 	background-color: #E2B9B9;
 	color: #FFFFF0
 }
+
+.user-header{
+	display: inline-block;
+}
+.add-user-btn{
+	float:right;
+}

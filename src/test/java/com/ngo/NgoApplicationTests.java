@@ -91,7 +91,7 @@ class NgoApplicationTests {
 		address1.setZip("T1T 1T1");
 		
 		user1.setFirstName("Abdurahman");
-		user1.setLast_name("Ahmed");
+		user1.setLastName("Ahmed");
 		user1.setEmail("abdahmed@live.ca");
 		user1.setHashedPassword("SomethingSomething");
 		user1.setAdmin(true);

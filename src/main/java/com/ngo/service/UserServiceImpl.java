@@ -1,7 +1,7 @@
 package com.ngo.service;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Set<User> getUsers() {
 		// TODO Auto-generated method stub
-		return new HashSet<User>(repo.findAll());
+		return new TreeSet<User>(repo.findAll());
 	}
 
 	@Override

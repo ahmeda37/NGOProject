@@ -12,37 +12,36 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-@Entity(name="users")
-@Table(name="users")
-public class User {
+@Entity(name = "users")
+@Table(name = "users")
+public class User implements Comparable<User> {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="user_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id")
 	private long userId;
-	
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinColumn(name="address_id")
-	@NotNull
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id")
 	private Address address;
-	
-	@Column(name="first_name")
+
+	@Column(name = "first_name")
 	@NotNull
 	private String firstName;
-	
-	@Column(name="last_name")
+
+	@Column(name = "last_name")
 	@NotNull
-	private String last_name;
-	
-	@Column(name="email")
+	private String lastName;
+
+	@Column(name = "email")
 	@NotNull
 	private String email;
-	
-	@Column(name="admin")
+
+	@Column(name = "admin")
 	@NotNull
-	private boolean isAdmin;
-	
-	@Column(name="hashed_password")
+	private boolean admin;
+
+	@Column(name = "hashed_password")
 	@NotNull
 	private String hashedPassword;
 
@@ -70,12 +69,12 @@ public class User {
 		this.firstName = firstName;
 	}
 
-	public String getLast_name() {
-		return last_name;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getEmail() {
@@ -86,12 +85,12 @@ public class User {
 		this.email = email;
 	}
 
-	public boolean isAdmin() {
-		return isAdmin;
+	public boolean getAdmin() {
+		return admin;
 	}
 
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 	public String getHashedPassword() {
@@ -101,8 +100,27 @@ public class User {
 	public void setHashedPassword(String hashedPassword) {
 		this.hashedPassword = hashedPassword;
 	}
-	
-	
-	
-	
+
+	@Override
+	public int compareTo(User u) {
+		// TODO Auto-generated method stub
+		if (u.getUserId() == this.userId) {
+			return 0;
+		} else if (u.getUserId() <= this.userId) {
+			return 1000;
+		} else {
+			return -1000;
+		}
+	}
+
+	@Override
+	public String toString() {
+		String result = "";
+		result += this.firstName + " " + this.lastName;
+		if(this.admin) {result += " (ADMIN)\n";}
+		else {result += " (USER)\n";}
+		result += this.address + "\n";
+		result += this.hashedPassword;
+		return result;
+	}
 }
