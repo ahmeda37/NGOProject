@@ -102,6 +102,6 @@ public class Cart implements Comparable<Cart> {
 		}
 	}
 	
-	//compareTo
+	//toString
 	
 }

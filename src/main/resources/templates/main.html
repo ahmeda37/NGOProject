@@ -9,24 +9,26 @@
 <body>
 
 <div th:insert="~{header :: header}"></div>
-<div class="row full-height">
-	<div class="col-4" th:insert="~{header :: menu-admin}" th:if="${admin == 'true'}">
+<div class="row full-height w-100">
+	<div class="col-4" th:insert="~{header :: menu-admin}" sec:authorize="hasRole('ROLE_ADMIN')">
 	</div>
-	<div class="col-4" th:insert="~{header :: menu-user}" th:if="${admin == 'false'}">
+	<div class="col-4" th:insert="~{header :: menu-user}" sec:authorize="hasRole('ROLE_USER')">
 	</div>
-	<div class="col-8" th:insert="~{user :: user-list}" th:if="${admin == 'false' and userList == 'true'}">
+	<div class="col-8" th:insert="~{user :: admin-list}" th:if="${userList == 'true'}" sec:authorize="hasRole('ROLE_ADMIN')">
 	</div>
-	<div class="col-8" th:insert="~{user :: admin-list}" th:if="${admin == 'true' and userList == 'true'}">
+	<div class="col-8" th:insert="~{user :: add-user-form}" th:if="${addUserForm == 'true'}" sec:authorize="hasRole('ROLE_ADMIN')">
 	</div>
-	<div class="col-8" th:insert="~{user :: add-user-form}" th:if="${admin == 'true' and addUserForm == 'true'}">
+	<div class="col-8" th:insert="~{user :: add-address-form}" th:if="${addAddress == 'true'}" sec:authorize="hasRole('ROLE_ADMIN')">
 	</div>
-	<div class="col-8" th:insert="~{user :: add-address-form}" th:if="${admin == 'true' and addAddress == 'true'}">
+	<div class="col-8" th:insert="~{user :: edit-user-form}" th:if="${editUser == 'true'}" sec:authorize="hasRole('ROLE_ADMIN')">
 	</div>
-	<div class="col-8" th:insert="~{user :: edit-user-form}" th:if="${admin == 'true' and editUser == 'true'}">
+	<div class="col-8" th:insert="~{user :: edit-address-form}" th:if="${editAddress == 'true'}" sec:authorize="hasRole('ROLE_ADMIN')">
 	</div>
-	<div class="col-8" th:insert="~{user :: edit-address-form}" th:if="${admin == 'true' and editAddress == 'true'}">
+	<div class="col-8" th:insert="~{donation :: donation-list}" th:if="${donationList == 'true'}" sec:authorize="hasRole('ROLE_ADMIN')">
 	</div>
-	<div class="col-8" th:insert="~{donation :: donation-list}" th:if="${admin == 'true' and donationList == 'true'}">
+	
+	<div class="col-8" th:if="${unauthorized == 'true'}">
+		<h1>Unauthorized</h1>
 	</div>
 </div>
 </body>

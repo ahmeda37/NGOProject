@@ -24,7 +24,7 @@
 				</tr>
 				<tr th:each="user: ${users}">
 					<td><span th:text="${user.userId}"></span></td>
-					<td><span th:text="${user.firstName}"></span></td>
+					<td><span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></td>
 					<td><span th:text="${user.email}"></span></td>
 					<td><span th:text="${user.admin} == true ? Admin:User"></span></td>
 				</tr>
@@ -53,7 +53,7 @@
 				</tr>
 				<tr th:each="user: ${users}">
 					<td><span th:text="${user.userId}"></span></td>
-					<td><span th:text="${user.firstName}"></span></td>
+					<td><span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></td>
 					<td><span th:text="${user.email}"></span></td>
 					<td><span th:text="${user.admin} == true ? Admin:User"></span></td>
 					<td><a th:href="@{'/users/edit/' + ${user.userId}}">Edit</a> | <a th:href="@{'/users/delete/' + ${user.userId}}">Delete</a></td>

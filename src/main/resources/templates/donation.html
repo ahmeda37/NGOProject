@@ -12,21 +12,21 @@
 		<table class="table">
 			<thead class="primary-color off-white-text">
 				<tr>
-					<th scope="col">ID</th>
 					<th scope="col">Name</th>
 					<th scope="col">Date</th>
  					<th scope="col">Amount</th>
+ 					<th scope="col">Organization</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:if="${donations.empty}">
+				<tr th:if="${gifts.empty}">
 					<td>No donations found!</td>
 				</tr>
-				<tr th:each="donation: ${donations}">
-					<td th:if="${donation.processed} == true"><span th:text="${donation.cartId}"></span></td>
-					<td th:if="${donation.processed} == true"><span th:text="${donation.user.firstName}"></span></td>
-					<td th:if="${donation.processed} == true"><span th:text="${donation.date}"></span></td>
-					<td th:if="${donation.processed} == true"><span th:text="${donation.total}"></span></td>
+				<tr th:each="gift: ${gifts}">
+					<td th:if="${gift.cart.processed} == true"><span th:text="${gift.cart.user.firstName} + ' ' + ${gift.cart.user.lastName}"></span></td>
+					<td th:if="${gift.cart.processed} == true"><span th:text="${#dates.format(gift.cart.date, 'MM-dd-yyyy')}"></span></td>
+					<td th:if="${gift.cart.processed} == true"><span th:text="'$' + ${#numbers.formatDecimal(gift.cart.total, 0, 'COMMA', 2, 'POINT')}"></span></td>
+					<td th:if="${gift.cart.processed} == true"><span th:text="${gift.donationType.typeName}"></span></td>					
 				</tr>
 			</tbody>
 		</table>

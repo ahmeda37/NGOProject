@@ -8,6 +8,9 @@
 <div class="header" th:fragment="header">
 <nav class="navbar primary-color off-white-text">
   <span class="navbar-brand mb-0 h1"><em>NGO Donations</em></span>
+          <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
 </nav>
 </div>
 

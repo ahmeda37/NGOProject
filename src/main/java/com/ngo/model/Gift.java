@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -23,6 +24,10 @@ public class Gift implements Comparable<Gift> {
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="donation_type_id")
 	private DonationType donationType;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="cart_id")
+	private Cart cart;
 	
 	@Column(name="gift_amount")
 	@NotNull
@@ -49,6 +54,14 @@ public class Gift implements Comparable<Gift> {
 
 	public void setDonationType(DonationType donationType) {
 		this.donationType = donationType;
+	}
+
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
 	}
 
 	public float getGiftAmount() {
