@@ -8,22 +8,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.ngo.model.MyUser;
+import com.ngo.service.DonationService;
 import com.ngo.service.UserService;
 
 @Controller
-public class RootController {
-	
+public class GiftController {
+
 	@Autowired
 	UserService userService;
 	
-	@GetMapping("/")
-	public String redirectHome() {
-		return "redirect:/users";
-	}
+	@Autowired
+	DonationService donationService;
 	
-	@GetMapping("/403")
-	public String unauthorized(Model model) {
-		model.addAttribute("unauthorized", "true");
+	@GetMapping("/gifts")
+	public String userView(Model model) {
+		model.addAttribute("curUser", getLoggedInUser());
+		model.addAttribute("types", donationService.getDonationTypes());
+		model.addAttribute("admin", "true");
+		model.addAttribute("giftView", "true");
 		return "main";
 	}
 	
@@ -31,4 +33,5 @@ public class RootController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		return userService.getUserByEmail(auth.getName());
 	}
+
 }

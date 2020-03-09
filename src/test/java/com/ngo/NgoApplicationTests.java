@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.ngo.model.Address;
 import com.ngo.model.Cart;
 import com.ngo.model.Gift;
-import com.ngo.model.User;
+import com.ngo.model.MyUser;
 import com.ngo.service.CartService;
 import com.ngo.service.GiftService;
 import com.ngo.service.UserService;
@@ -41,7 +41,7 @@ class NgoApplicationTests {
 	
 	@Test
 	void insertUser() {
-		User user1 = createUser();
+		MyUser user1 = createUser();
 		
 		userService.addUser(user1);
 		
@@ -52,7 +52,7 @@ class NgoApplicationTests {
 	
 	@Test
 	void getAndUpdateUser() {
-		User user1 = createUser();
+		MyUser user1 = createUser();
 		
 		userService.addUser(user1);
 		
@@ -68,13 +68,13 @@ class NgoApplicationTests {
 	
 	@Test
 	void getListOfUser() {
-		User user1 = createUser();
+		MyUser user1 = createUser();
 		userService.addUser(user1);
 		
-		User user2 = createUser();
+		MyUser user2 = createUser();
 		userService.addUser(user2);
 		
-		Set<User> users = userService.getUsers();
+		Set<MyUser> users = userService.getUsers();
 		
 		assertThat(users.size() == 2);
 		
@@ -82,14 +82,14 @@ class NgoApplicationTests {
 	
 	@Test
 	void deleteUser() {
-		User user1 = createUser();
+		MyUser user1 = createUser();
 		userService.addUser(user1);
 		userService.deleteUser(user1.getUserId());
 		assertThat(user1 == null);
 	}
 	
-	User createUser() {
-		User user1 = new User();
+	MyUser createUser() {
+		MyUser user1 = new MyUser();
 		Address address1 = new Address();
 		
 		address1.setAddress1("12345 123 ST NW");
@@ -174,7 +174,7 @@ class NgoApplicationTests {
 		assertThat(g == null);
 	}
 	Cart createCart() {
-		User user1 = createUser();
+		MyUser user1 = createUser();
 		userService.addUser(user1);
 		Gift g = createGift();
 		giftService.addGift(g);

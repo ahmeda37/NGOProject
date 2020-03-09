@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ngo.model.Cart;
+import com.ngo.model.MyUser;
 import com.ngo.repository.CartRepository;
 
 @Service("cartService")
@@ -21,6 +22,10 @@ public class CartServiceImpl implements CartService {
 		return repo.findById(id).get();
 	}
 
+	@Override
+	public Cart getCartByUser(MyUser user) {
+		return repo.getCartByUser(user);
+	}
 	@Override
 	public Set<Cart> getCarts() {
 		// TODO Auto-generated method stub

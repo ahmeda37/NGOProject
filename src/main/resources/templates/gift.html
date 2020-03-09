@@ -2,9 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
 </head>
 <body>
-
+<div class="gift" th:fragment="gift-list">
+	<span th:each="type: ${types}"><button th:text="${type.typeName}"></button></span>
+</div>
 </body>
 </html>

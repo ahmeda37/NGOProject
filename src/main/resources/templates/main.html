@@ -10,25 +10,26 @@
 
 <div th:insert="~{header :: header}"></div>
 <div class="row full-height w-100">
-	<div class="col-4" th:insert="~{header :: menu-admin}" sec:authorize="hasRole('ROLE_ADMIN')">
+	<div class="col-4" th:insert="~{header :: menu-admin}" sec:authorize="hasAuthority('ADMIN')">
 	</div>
-	<div class="col-4" th:insert="~{header :: menu-user}" sec:authorize="hasRole('ROLE_USER')">
+	<div class="col-4" th:insert="~{header :: menu-user}" sec:authorize="hasAuthority('USER')">
 	</div>
-	<div class="col-8" th:insert="~{user :: admin-list}" th:if="${userList == 'true'}" sec:authorize="hasRole('ROLE_ADMIN')">
+	<div class="col-8" th:insert="~{user :: admin-list}" th:if="${userList == 'true'}" sec:authorize="hasAuthority('ADMIN')">
 	</div>
-	<div class="col-8" th:insert="~{user :: add-user-form}" th:if="${addUserForm == 'true'}" sec:authorize="hasRole('ROLE_ADMIN')">
+	<div class="col-8" th:insert="~{user :: add-user-form}" th:if="${addUserForm == 'true'}" sec:authorize="hasAuthority('ADMIN')">
 	</div>
-	<div class="col-8" th:insert="~{user :: add-address-form}" th:if="${addAddress == 'true'}" sec:authorize="hasRole('ROLE_ADMIN')">
+	<div class="col-8" th:insert="~{user :: add-address-form}" th:if="${addAddress == 'true'}" sec:authorize="hasAuthority('ADMIN')">
 	</div>
-	<div class="col-8" th:insert="~{user :: edit-user-form}" th:if="${editUser == 'true'}" sec:authorize="hasRole('ROLE_ADMIN')">
+	<div class="col-8" th:insert="~{user :: edit-user-form}" th:if="${editUser == 'true'}" sec:authorize="hasAuthority('ADMIN')">
 	</div>
-	<div class="col-8" th:insert="~{user :: edit-address-form}" th:if="${editAddress == 'true'}" sec:authorize="hasRole('ROLE_ADMIN')">
+	<div class="col-8" th:insert="~{user :: edit-address-form}" th:if="${editAddress == 'true'}" sec:authorize="hasAuthority('ADMIN')">
 	</div>
-	<div class="col-8" th:insert="~{donation :: donation-list}" th:if="${donationList == 'true'}" sec:authorize="hasRole('ROLE_ADMIN')">
+	<div class="col-8" th:insert="~{donation :: donation-list}" th:if="${donationList == 'true'}" sec:authorize="hasAuthority('ADMIN')">
 	</div>
-	
 	<div class="col-8" th:if="${unauthorized == 'true'}">
 		<h1>Unauthorized</h1>
+	</div>
+	<div class="col-8" th:insert="~{gift :: gift-list}" th:if="${giftView == 'true'}" sec:authorize="hasAnyAuthority('USER', 'ADMIN')">
 	</div>
 </div>
 </body>

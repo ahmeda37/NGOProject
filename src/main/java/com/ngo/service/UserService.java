@@ -2,12 +2,13 @@ package com.ngo.service;
 
 import java.util.Set;
 
-import com.ngo.model.User;
+import com.ngo.model.MyUser;
 
 public interface UserService {
-	public User getUserById(long id);
-	public Set<User> getUsers();
-	public void addUser(User u);
-	public void updateUser(User u);
+	public MyUser getUserById(long id);
+	public MyUser getUserByEmail(String email);
+	public Set<MyUser> getUsers();
+	public void addUser(MyUser u);
+	public void updateUser(MyUser u);
 	public void deleteUser(long id);
 }

@@ -23,7 +23,8 @@
 					<td>No donations found!</td>
 				</tr>
 				<tr th:each="gift: ${gifts}">
-					<td th:if="${gift.cart.processed} == true"><span th:text="${gift.cart.user.firstName} + ' ' + ${gift.cart.user.lastName}"></span></td>
+					<td th:if="${gift.cart.processed} == true and ${gift.cart.user} != null"><span th:text="${gift.cart.user.firstName} + ' ' + ${gift.cart.user.lastName}"></span></td>
+					<td th:if="${gift.cart.processed} == true and ${gift.cart.user} == null"><span>Unavailable</span></td>
 					<td th:if="${gift.cart.processed} == true"><span th:text="${#dates.format(gift.cart.date, 'MM-dd-yyyy')}"></span></td>
 					<td th:if="${gift.cart.processed} == true"><span th:text="'$' + ${#numbers.formatDecimal(gift.cart.total, 0, 'COMMA', 2, 'POINT')}"></span></td>
 					<td th:if="${gift.cart.processed} == true"><span th:text="${gift.donationType.typeName}"></span></td>					

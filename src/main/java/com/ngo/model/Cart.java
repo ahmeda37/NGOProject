@@ -26,8 +26,7 @@ public class Cart implements Comparable<Cart> {
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
-	@NotNull
-	private User user;
+	private MyUser user;
 	
 	@OneToMany(fetch=FetchType.EAGER)
 	@JoinColumn(name="cart_id")
@@ -51,11 +50,11 @@ public class Cart implements Comparable<Cart> {
 		this.cartId = cartId;
 	}
 
-	public User getUser() {
+	public MyUser getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(MyUser user) {
 		this.user = user;
 	}
 
