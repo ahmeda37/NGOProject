@@ -117,14 +117,14 @@ public class MyUser implements Comparable<MyUser>{
 
 	@Override
 	public String toString() {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		encoder.encode(this.hashedPassword).toString();
+		//BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		//encoder.encode(this.hashedPassword).toString();
 		String result = "";
 		result += this.firstName + " " + this.lastName;
 		if(this.admin) {result += " (ADMIN)\n";}
 		else {result += " (USER)\n";}
 		result += this.address + "\n";
-		result += encoder.encode(this.hashedPassword).toString();
+		//result += encoder.encode(this.hashedPassword).toString();
 		return result;
 	}
 }

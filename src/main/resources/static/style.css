@@ -8,6 +8,10 @@ html, body{
 	background-color: #740F0F;
 }
 
+.secondary-color{
+	background-color: #E2B9B9;	
+}
+
 .off-white-text{
 	color: #FFFFF0 !important;
 }

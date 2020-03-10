@@ -25,7 +25,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.authorizeRequests().antMatchers("/","/index","/home").permitAll();
-		http.authorizeRequests().antMatchers("/users","/donations").access("hasAuthority('ADMIN')");
+		http.authorizeRequests().antMatchers("/users/**","/donations/**").access("hasAuthority('ADMIN')");
+		http.authorizeRequests().antMatchers("/gifts/**").access("hasAnyAuthority('USER','ADMIN')");
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 		http.formLogin().loginPage("/login").permitAll().and().logout().permitAll();
 	}

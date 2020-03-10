@@ -31,6 +31,10 @@
 	</div>
 	<div class="col-8" th:insert="~{gift :: gift-list}" th:if="${giftView == 'true'}" sec:authorize="hasAnyAuthority('USER', 'ADMIN')">
 	</div>
+	<div class="col-8" th:insert="~{gift :: gift-confirm-user}" th:if="${confirmView == 'true'}" sec:authorize="hasAnyAuthority('USER', 'ADMIN')">
+	</div>
+	<div class="col-8" th:insert="~{gift :: gift-amount}" th:if="${giftAmount == 'true'}" sec:authorize="hasAnyAuthority('USER', 'ADMIN')">
+	</div>
 </div>
 </body>
 </html>

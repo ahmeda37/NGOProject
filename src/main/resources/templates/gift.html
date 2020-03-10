@@ -4,8 +4,101 @@
 <meta charset="ISO-8859-1">
 </head>
 <body>
-<div class="gift" th:fragment="gift-list">
-	<span th:each="type: ${types}"><button th:text="${type.typeName}"></button></span>
-</div>
+	<div class="gift container" th:fragment="gift-list">
+		<h1 class="my-5">
+			<em>Donation Types</em>
+		</h1>
+		<div class="row">
+			<div class="col-3 my-5 text-center" th:each="type: ${types}">
+				<a class="btn btn-block primary-color off-white-text"
+					th:text="${type.typeName}" href="/gifts/confirm"></a>
+			</div>
+		</div>
+	</div>
+
+	<div class="confirm" th:fragment="gift-confirm-user">
+		<h2>Confirm User Information</h2>
+		<div class="container">
+			<h1 class="user-header m-3">Edit User</h1>
+			<form action="#" th:action="@{/gifts/confirm}" method="post">
+				<div class="form-group">
+					<label for="userId">ID</label> <input class="form-control"
+						type="text" name="userId" id="userId" th:value="${user.userId}"
+						readOnly>
+				</div>
+				<div class="form-group">
+					<label for="firstName">First Name</label> <input
+						class="form-control" type="text" name="firstName" id="firstName"
+						th:value="${user.firstName}" readOnly>
+				</div>
+				<div class="form-group">
+					<label for="lastName">Last Name</label> <input class="form-control"
+						type="text" name="lastName" id="lastName"
+						th:value="${user.lastName}" readOnly>
+				</div>
+				<div class="form-group">
+					<label for="emailName">Email</label> <input class="form-control"
+						type="email" name="email" id="email" th:value="${user.email}"
+						readOnly>
+				</div>
+				<div class="form-group">
+					<label for="address1">Address 1</label> <input class="form-control"
+						type="text" name="address1" id="address1"
+						th:value="${user.address.address1}">
+				</div>
+				<div class="form-group">
+					<label for="address2">Address 2</label> <input class="form-control"
+						type="text" name="address2" id="address2"
+						th:value="${user.address.address2}">
+				</div>
+				<div class="form-group">
+					<label for="city">City</label> <input class="form-control"
+						type="text" name="city" id="city" th:value="${user.address.city}">
+				</div>
+				<div class="form-group">
+					<label for="state">State</label> <input class="form-control"
+						type="text" name="state" id="state"
+						th:value="${user.address.state}">
+				</div>
+				<div class="form-group">
+					<label for="country">Country</label> <input class="form-control"
+						type="text" name="country" id="country"
+						th:value="${user.address.country}">
+				</div>
+				<div class="form-group">
+					<label for="zip">Zip</label> <input class="form-control"
+						type="text" name="zip" id="zip" th:value="${user.address.zip}">
+				</div>
+				<div class="form-group">
+					<label for="urbanization">Urbanization*</label> <input
+						class="form-control" type="text" name="urbanization"
+						id="urbanization" th:value="${user.address.urbanization}">
+				</div>
+				<button class="submit btn primary-color off-white-text">Confirm</button>
+			</form>
+		</div>
+	</div>
+
+	<div class="amount" th:fragment="gift-amount">
+		<form>
+			<div class="row" th:each="type: ${types}">
+				<div class="col-3 form-group">
+					<input type="text" class="form-control" name="typeName" id="typeName" th:value="${type.typeName}" readOnly>
+				</div>
+				<div class="col-3 form-group">
+					<input type="number" class="form-control" name="quantity" id="quantity" placeholder="Quantity">
+				</div>
+				<div class="col-3 form-group">
+					<input type="number" class="form-control" name="amount" id="amount" placeholder="Amount">
+				</div>
+				<div class="col-3 form-check" th:if="${type.hasRecurringOption}">
+  					<input class="form-check-input" type="checkbox" id="hasRecurringOption" value="1">
+  				    <label class="form-check-label" for="hasRecurringOption">Recurring</label>
+  					
+				</div>
+			</div>
+			<button class="submit btn primary-color off-white-text">Confirm</button>
+		</form>
+	</div>
 </body>
 </html>

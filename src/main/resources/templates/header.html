@@ -8,10 +8,12 @@
 <div class="header" th:fragment="header">
 <nav class="navbar primary-color off-white-text">
   <span class="navbar-brand mb-0 h1"><em>NGO Donations</em></span>
+  <div sec:authorize="isAuthenticated()">
   <p><em>Welcome <span sec:authentication="principal.firstName"></span> <span sec:authentication="principal.lastName"></span></em></p>
           <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
+            <input class="btn secondary-color off-white-text" type="submit" value="Sign Out"/>
         </form>
+  </div>
 </nav>
 </div>
 
@@ -22,7 +24,7 @@
 		<br>
 		<h3><a href="/users"><em>User Management</em></a></h3>
 		<h3><a href="/donations"><em>Donation Management</em></a></h3>
-		<h3><em>User View</em></h3>
+		<h3><a href="/gifts"><em>User View</em></a></h3>
 	</div>
 </div>
 
@@ -31,7 +33,7 @@
 		<br>
 		<h2 class="text-center"><em>Menu</em></h2>
 		<br>
-		<h3><em>User View</em></h3>
+		<h3><a href="/gifts"><em>User View</em></a></h3>
 	</div>
 </div>
 
