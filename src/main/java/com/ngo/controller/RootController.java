@@ -16,12 +16,25 @@ public class RootController {
 	@Autowired
 	UserService userService;
 	
-	@GetMapping("/")
+	@GetMapping({"/","/index","/home"})
 	public String redirectHome() {
-		return "redirect:/users";
+		MyUser u = getLoggedInUser();
+		if(u == null) {
+			return "redirect:/login";
+		}
+		if(u.getAdmin()) {
+		return "redirect:/donations";
+		}else {
+			return "redirect:/gifts";
+		}
 	}
 	
-	@GetMapping("/403")
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+	
+	@GetMapping({"/403","/404","/405","/500"})
 	public String unauthorized(Model model) {
 		model.addAttribute("unauthorized", "true");
 		return "main";

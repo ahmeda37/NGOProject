@@ -29,11 +29,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		
 		if (user != null) {
 			authorities.add(new SimpleGrantedAuthority(user.getAdmin() ? "ADMIN" : "USER"));
-			System.out.println(authorities);
 			profile = new Profile(user.getEmail(), user.getHashedPassword(), true, true, true, true,authorities);
-			System.out.println(profile.getAuthorities());
 			profile.setProfile(user);
-			
 			return profile;
 		} else {
 			throw new UsernameNotFoundException("User not found");

@@ -45,4 +45,10 @@ public class GiftServiceImpl implements GiftService {
 		repo.deleteById(id);
 	}
 
+	@Override
+	public void saveAll(Set<Gift> gifts) {
+		// TODO Auto-generated method stub
+		repo.saveAll(gifts);
+	}
+
 }

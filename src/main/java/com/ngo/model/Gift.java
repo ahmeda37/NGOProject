@@ -100,5 +100,11 @@ public class Gift implements Comparable<Gift> {
 		}
 	}
 	
-	//toString
+	public String toString() {
+		String result = "";
+		result += this.giftAmount +"\n";
+		result += this.recurring + "\n";
+		result += this.quantity + "\n";
+		return result;
+	}
 }

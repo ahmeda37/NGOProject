@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity(name="donation_types")
 @Table(name="donation_types")
-public class DonationType {
+public class DonationType implements Comparable<DonationType>{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -49,4 +49,20 @@ public class DonationType {
 		this.hasRecurringOption = hasRecurringOption;
 	}
 	
+	@Override
+	public int compareTo(DonationType d) {
+		if (d.getDonationTypeId() == this.donationTypeId) {
+			return 0;
+		} else if (d.getDonationTypeId() <= this.donationTypeId) {
+			return 1000;
+		} else {
+			return -1000;
+		}
+	}
+	
+	public String toString() {
+		String result = "";
+		result += this.typeName + "\n";
+		return result;
+	}
 }

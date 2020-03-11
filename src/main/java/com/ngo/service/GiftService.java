@@ -10,4 +10,5 @@ public interface GiftService {
 	public void addGift(Gift g);
 	public void updateGift(Gift g);
 	public void deleteGift(long id);
+	public void saveAll(Set<Gift> gifts);
 }

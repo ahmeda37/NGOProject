@@ -80,24 +80,74 @@
 	</div>
 
 	<div class="amount" th:fragment="gift-amount">
-		<form>
-			<div class="row" th:each="type: ${types}">
+		<h2 class="my-3">
+			<em>Donation Amount</em>
+		</h2>
+		<form action="#" th:action="@{/gifts/cart}" method="post"
+			th:object="${form}">
+			<div class="row" th:each="gift, itemStat: *{giftList}">
 				<div class="col-3 form-group">
-					<input type="text" class="form-control" name="typeName" id="typeName" th:value="${type.typeName}" readOnly>
+					<input type="text" class="form-control" name="typeName"
+						id="typeName" th:value="${gift.donationType.typeName}" readOnly
+						th:field="*{giftList[__${itemStat.index}__].donationType.typeName}">
+				</div>
+				<input type="hidden" th:value="gift.donationType.donationTypeId"
+					th:field="*{giftList[__${itemStat.index}__].donationType.donationTypeId}">
+				<div class="col-3 form-group">
+					<input type="number" class="form-control" name="quantity"
+						id="quantity" placeholder="Quantity"
+						th:field="*{giftList[__${itemStat.index}__].quantity}">
 				</div>
 				<div class="col-3 form-group">
-					<input type="number" class="form-control" name="quantity" id="quantity" placeholder="Quantity">
+					<input type="number" class="form-control" name="giftAmount"
+						id="giftAmount" placeholder="Amount"
+						th:field="*{giftList[__${itemStat.index}__].giftAmount}">
 				</div>
-				<div class="col-3 form-group">
-					<input type="number" class="form-control" name="amount" id="amount" placeholder="Amount">
-				</div>
-				<div class="col-3 form-check" th:if="${type.hasRecurringOption}">
-  					<input class="form-check-input" type="checkbox" id="hasRecurringOption" value="1">
-  				    <label class="form-check-label" for="hasRecurringOption">Recurring</label>
-  					
+				<div class="col-3 form-check"
+					th:if="${gift.donationType.hasRecurringOption}">
+					<input class="form-check-input" type="checkbox" id="recurring"
+						name="recurring" value="0"
+						th:field="*{giftList[__${itemStat.index}__].recurring}"> <label
+						class="form-check-label" for="recurring">Recurring</label>
+
 				</div>
 			</div>
 			<button class="submit btn primary-color off-white-text">Confirm</button>
+		</form>
+	</div>
+
+	<div class="cart" th:fragment="gift-cart">
+		<h2 class="my-3">
+			<em>Cart</em>
+		</h2>
+		<table class="table">
+			<thead class="primary-color off-white-text">
+				<tr>
+					<th scope="col">Organization Name</th>
+					<th scope="col">Quantity</th>
+					<th scope="col">Amount</th>
+					<th scope="col">Total</th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${cart == null or cart.gifts.empty}">
+					<td colspan="7">No Items In Cart</td>
+				</tr>
+				<tr th:each="gift: ${cart.gifts}">
+					<td><span th:text="${gift.donationType.typeName}"></span></td>
+					<td><span th:text="${gift.quantity}"></span></td>
+					<td><span th:text="'$' + ${#numbers.formatDecimal(gift.giftAmount, 0, 'COMMA', 2, 'POINT')}"></span></td>
+					<td><span th:text="'$' + ${#numbers.formatDecimal(gift.quantity * gift.giftAmount, 0, 'COMMA', 2, 'POINT')}"></span></td>
+					<td><a th:href="@{/gifts/cart/remove/{cartId}/{giftId}(cartId = ${cart.cartId}, giftId = ${gift.giftId})}">Remove</a></td>
+				</tr>
+				<tr class="primary-color off-white-text">
+					<td colspan="5"><span th:text="'Subtotal: $' + ${#numbers.formatDecimal(cart.total, 0, 'COMMA', 2, 'POINT')}"></span></td>
+				</tr>
+			</tbody>
+		</table>
+		<form action="#" th:action="@{'/gifts/cart/process/' + ${cart.cartId}}" method="post">
+			<button class="primary-color btn off-white-text">Process</button>
 		</form>
 	</div>
 </body>

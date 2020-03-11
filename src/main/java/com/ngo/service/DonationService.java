@@ -7,5 +7,5 @@ import com.ngo.model.DonationType;
 public interface DonationService {
 	
 	public Set<DonationType> getDonationTypes();
-
+	public DonationType getDonationTypeById(long id);
 }

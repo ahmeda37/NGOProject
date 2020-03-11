@@ -1,6 +1,6 @@
 package com.ngo.service;
 
-import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,13 @@ public class DonationServiceImpl implements DonationService {
 	@Override
 	public Set<DonationType> getDonationTypes() {
 		// TODO Auto-generated method stub
-		return new HashSet<DonationType>(repo.findAll());
+		return new TreeSet<DonationType>(repo.findAll());
+	}
+
+	@Override
+	public DonationType getDonationTypeById(long id) {
+		// TODO Auto-generated method stub
+		return repo.findById(id).get();
 	}
 
 	

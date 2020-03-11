@@ -28,7 +28,7 @@ public class Cart implements Comparable<Cart> {
 	@JoinColumn(name="user_id")
 	private MyUser user;
 	
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="cart_id")
 	private Set<Gift> gifts;
 	

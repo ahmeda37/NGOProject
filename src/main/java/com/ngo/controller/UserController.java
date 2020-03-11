@@ -1,5 +1,6 @@
 package com.ngo.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,7 +48,7 @@ public class UserController{
 		MyUser u = userService.getUserById(Integer.parseInt(userId));
 		u.setAddress(address);
 		userService.updateUser(u);
-		return "redirect:/users";
+		return "redirect:/";
 	}
 	
 	@PostMapping("/users/add")
@@ -96,13 +97,16 @@ public class UserController{
 		MyUser u = userService.getUserById(Long.parseLong(userId));
 		u.setAddress(address);
 		userService.updateUser(u);
-		return "redirect:/users";
+		if(!u.getAdmin() && u == getLoggedInUser()) {
+	        SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "redirect:/";
 	}
 	
 	@GetMapping("/users/delete/{userId}")
 	public String processDeleteUser(@PathVariable String userId) {
 		userService.deleteUser(Long.parseLong(userId));
-		return "redirect:/users";
+		return "redirect:/";
 	}
 	
 	public MyUser getLoggedInUser() {

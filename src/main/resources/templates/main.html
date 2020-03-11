@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"><head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="/style.css">
@@ -34,6 +34,8 @@
 	<div class="col-8" th:insert="~{gift :: gift-confirm-user}" th:if="${confirmView == 'true'}" sec:authorize="hasAnyAuthority('USER', 'ADMIN')">
 	</div>
 	<div class="col-8" th:insert="~{gift :: gift-amount}" th:if="${giftAmount == 'true'}" sec:authorize="hasAnyAuthority('USER', 'ADMIN')">
+	</div>
+	<div class="col-8" th:insert="~{gift :: gift-cart}" th:if="${cartView == 'true'}" sec:authorize="hasAnyAuthority('USER', 'ADMIN')">
 	</div>
 </div>
 </body>

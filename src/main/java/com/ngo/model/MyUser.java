@@ -12,8 +12,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 
 @Entity(name = "users")
 @Table(name = "users")
@@ -117,14 +115,11 @@ public class MyUser implements Comparable<MyUser>{
 
 	@Override
 	public String toString() {
-		//BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		//encoder.encode(this.hashedPassword).toString();
 		String result = "";
 		result += this.firstName + " " + this.lastName;
 		if(this.admin) {result += " (ADMIN)\n";}
 		else {result += " (USER)\n";}
 		result += this.address + "\n";
-		//result += encoder.encode(this.hashedPassword).toString();
 		return result;
 	}
 }
