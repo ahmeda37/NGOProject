@@ -153,7 +153,7 @@ public class GiftController {
 	public void sendEmail(Cart c) {
 		SimpleMailMessage msg = new SimpleMailMessage();
 		msg.setTo(c.getUser().getEmail());
-		
+		msg.setFrom("ahmeda90210@gmail.com");
 		msg.setSubject("Your Donation on " + c.getDate());
 		msg.setText(c.toString());
 		
