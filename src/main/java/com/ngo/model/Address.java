@@ -124,12 +124,12 @@ public class Address {
 	public String toString() {
 		String result = "";
 		result += this.address1 + "\n";
-		if(this.address2 != null && !this.address2.isBlank()) {result += this.address2 + "\n";}
+		if(this.address2 != null) {result += this.address2 + "\n";}
 		result += this.city + ", ";
-		if(this.state != null && !this.state.isBlank()) {result += this.state + " ";}
+		if(this.state != null) {result += this.state + " ";}
 		result += this.country + "\n";
-		if(this.zip != null && !this.zip.isBlank()) {result += this.zip + " ";}
-		if(this.urbanization != null && !this.urbanization.isBlank()) {result += this.urbanization + " ";}
+		if(this.zip != null) {result += this.zip + " ";}
+		if(this.urbanization != null) {result += this.urbanization + " ";}
 		return result;
 	}
 	

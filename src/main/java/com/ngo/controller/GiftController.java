@@ -137,13 +137,13 @@ public class GiftController {
 		return "redirect:/";
 	}
 	public Address setAddr(Address cur, Address newAdd) {
-		if(newAdd.getAddress1() != null && !newAdd.getAddress1().isBlank()) {cur.setAddress1(newAdd.getAddress1());}
-		if(newAdd.getAddress2() != null && !newAdd.getAddress2().isBlank()) {cur.setAddress2(newAdd.getAddress2());}
-		if(newAdd.getCity() != null && !newAdd.getCity().isBlank()) {cur.setCity(newAdd.getCity());}
-		if(newAdd.getState() != null && !newAdd.getState().isBlank()) {cur.setState(newAdd.getState());}
-		if(newAdd.getCountry() != null && !newAdd.getCountry().isBlank()) {cur.setCountry(newAdd.getCountry());}
-		if(newAdd.getZip() != null && !newAdd.getZip().isBlank()) {cur.setZip(newAdd.getZip());}
-		if(newAdd.getUrbanization() != null && !newAdd.getUrbanization().isBlank()) {cur.setUrbanization(newAdd.getUrbanization());}
+		if(newAdd.getAddress1() != null) {cur.setAddress1(newAdd.getAddress1());}
+		if(newAdd.getAddress2() != null) {cur.setAddress2(newAdd.getAddress2());}
+		if(newAdd.getCity() != null) {cur.setCity(newAdd.getCity());}
+		if(newAdd.getState() != null) {cur.setState(newAdd.getState());}
+		if(newAdd.getCountry() != null) {cur.setCountry(newAdd.getCountry());}
+		if(newAdd.getZip() != null) {cur.setZip(newAdd.getZip());}
+		if(newAdd.getUrbanization() != null) {cur.setUrbanization(newAdd.getUrbanization());}
 		return cur;
 	}
 	public MyUser getLoggedInUser() {
