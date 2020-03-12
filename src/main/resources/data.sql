@@ -4,7 +4,7 @@ insert into addresses (address_id, address_1, city, zip, country) values
 (3,'1225 Heat St','Miami','55412','United States');
 
 insert into users (user_id, address_id, first_name, last_name, email, hashed_password, admin) values
-(1, 1, 'Abdurahman', 'Ali', 'aali@smpt.ca', '$2a$10$QoyPh5uXaW98PCECI6tPaOaQihKDHJ11TlSaE.xkiuimjJkUBkXJa', 1),
+(1, 1, 'Abdurahman', 'Ali', 'abdahmed@live.ca', '$2a$10$QoyPh5uXaW98PCECI6tPaOaQihKDHJ11TlSaE.xkiuimjJkUBkXJa', 1),
 (2, 2, 'Mohamed', 'Abdo', 'mabdo@smpt.ca', '$2a$10$QoyPh5uXaW98PCECI6tPaOaQihKDHJ11TlSaE.xkiuimjJkUBkXJa', 0),
 (3, 3, 'Bashir', 'Haji', 'bhaji@smpt.ca', 'asggdgsdgggs', 1);
 

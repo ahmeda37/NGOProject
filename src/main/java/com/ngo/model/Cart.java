@@ -101,6 +101,21 @@ public class Cart implements Comparable<Cart> {
 		}
 	}
 	
-	//toString
+	public String toString() {
+		String result = "";
+		result += "Cart ID: " + (Long)this.cartId != null ? this.cartId:"No ID" + "\n";
+		result += "User: " + this.user != null ? this.user:"No User" + "\n";
+		result += "Donations: ";
+		if(gifts != null) {
+			for(Gift g: this.gifts) {
+				result += g;
+			}
+		}else {
+			result += "No Donatons" + "\n";
+		}
+		result += "Date: " + this.date.toString() + "\n";
+		result += "Total: " + (Float)this.total != null ? this.total:"No Total" + "\n";
+		return result;
+	}
 	
 }

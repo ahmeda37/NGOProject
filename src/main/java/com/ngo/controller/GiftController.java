@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -40,6 +42,9 @@ public class GiftController {
 	@Autowired
 	GiftService giftService;
 
+	@Autowired
+	private JavaMailSender javaMailSender;
+	
 	@GetMapping("/gifts")
 	public String userView(Model model) {
 		model.addAttribute("curUser", getLoggedInUser());
@@ -126,6 +131,9 @@ public class GiftController {
 		c.setProcessed(true);
 		c.setDate(date);
 		cartService.updateCart(c);
+		
+		sendEmail(c);
+		
 		return "redirect:/";
 	}
 	public Address setAddr(Address cur, Address newAdd) {
@@ -142,5 +150,13 @@ public class GiftController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		return userService.getUserByEmail(auth.getName());
 	}
-
+	public void sendEmail(Cart c) {
+		SimpleMailMessage msg = new SimpleMailMessage();
+		msg.setTo(c.getUser().getEmail());
+		
+		msg.setSubject("Your Donation on " + c.getDate());
+		msg.setText(c.toString());
+		
+		javaMailSender.send(msg);
+	}
 }
