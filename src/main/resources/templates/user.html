@@ -6,33 +6,6 @@
 </head>
 <body>
 
-<div class="user" th:fragment="user-list">
-	<div class="container">
-		<h2 class="user-header m-3"><em>User Management</em></h2>
-		<table class="table">
-			<thead class="primary-color off-white-text">
-				<tr>
-					<th scope="col">ID</th>
-					<th scope="col">Name</th>
-					<th scope="col">Email</th>
- 					<th scope="col">Role</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:if="${users.empty}">
-					<td colspan="7">No users found!</td>
-				</tr>
-				<tr th:each="user: ${users}">
-					<td><span th:text="${user.userId}"></span></td>
-					<td><span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></td>
-					<td><span th:text="${user.email}"></span></td>
-					<td><span th:text="${user.admin} == true ? Admin:User"></span></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-</div>
-
 <div class="user" th:fragment="admin-list">
 	<div class="container">
 		<h2 class="user-header m-3"><em>User Management</em></h2>
@@ -56,7 +29,7 @@
 					<td><span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></td>
 					<td><span th:text="${user.email}"></span></td>
 					<td><span th:text="${user.admin} == true ? Admin:User"></span></td>
-					<td><a th:href="@{'/users/edit/' + ${user.userId}}">Edit</a> | <a th:href="@{'/users/delete/' + ${user.userId}}" th:if="${user.userId} != ${curUser.userId} and ${!user.admin}">Delete</a></td>
+					<td th:if="${user.userId} != ${curUser.userId}"><a th:href="@{'/users/edit/' + ${user.userId}}">Edit</a> | <a th:href="@{'/users/delete/' + ${user.userId}}">Delete</a></td>
 				</tr>
 			</tbody>
 		</table>
@@ -66,145 +39,194 @@
 <div class="add-user-form" th:fragment="add-user-form">
  	<div class="container">
 		<h1 class="user-header m-3">Add User</h1>
-		<form action="#" th:action="@{/users/add}" th:object="${user}" method="post">
+		<form action="#" th:action="@{/users/add}" method="post" th:object="${addForm}">
 			<div class="form-group">
 				<label for="firstName">First Name</label>
-				<input class="form-control" type="text" name="firstName" id="firstName">
+				<input class="form-control" type="text" th:field="*{firstName}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></small>
 			</div>
 			<div class="form-group">
 				<label for="lastName">Last Name</label>
-				<input class="form-control" type="text" name="lastName" id="lastName">
+				<input class="form-control" type="text" th:field="*{lastName}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></small>
 			</div>
 			<div class="form-group">
 				<label for="emailName">Email</label>
-				<input class="form-control" type="email" name="email" id="email">
+				<input class="form-control" type="email" name="email" id="email" th:field="*{email}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
 			</div>
 			<div class="form-group">
 				<label for="hashedPassword">Password</label>
-				<input class="form-control" type="password" name="hashedPassword" id="hashedPassword">
+				<input class="form-control" type="password" th:field="*{password}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>			
 			</div>
-			<div class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" name="admin" id="admin" value="1">
-				<label class="form-check-label" for="admin">Admin</label>
-			</div>
-			<div class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" name="admin" id="user" value="0">
-				<label class="form-check-label" for="user">User</label>
-			</div>
-			<button class="submit btn primary-color off-white-text">Next Page</button>
-		</form>
-	</div>
-</div>
-
-<div class="add-address-form" th:fragment="add-address-form">
- 	<div class="container">
-		<h1 class="user-header m-3">Add Address for <span th:text="${user.firstName}"></span></h1>
-		<form action="#" th:action="@{'/users/addAddress/' + ${user.userId}}" th:object="${address}" method="post">
 			<div class="form-group">
 				<label for="address1">Address 1</label>
-				<input class="form-control" type="text" name="address1" id="address1">
+				<input class="form-control" type="text" th:field="*{address1}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}"></small>
 			</div>
 			<div class="form-group">
 				<label for="address2">Address 2</label>
-				<input class="form-control" type="text" name="address2" id="address2">
+				<input class="form-control" type="text" th:field="*{address2}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('address2')}" th:errors="*{address2}"></small>
 			</div>
 			<div class="form-group">
 				<label for="city">City</label>
-				<input class="form-control" type="text" name="city" id="city">
+				<input class="form-control" type="text" th:field="*{city}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></small>
 			</div>
 			<div class="form-group">
 				<label for="state">State</label>
-				<input class="form-control" type="text" name="state" id="state">
+				<input class="form-control" type="text" th:field="*{state}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></small>
 			</div>
 			<div class="form-group">
 				<label for="country">Country</label>
-				<input class="form-control" type="text" name="country" id="country">
+				<input class="form-control" type="text" th:field="*{country}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></small>
 			</div>
 			<div class="form-group">
-				<label for="zip">Zip</label>
-				<input class="form-control" type="text" name="zip" id="zip">
+				<label for="zip">Postal Code/Zip</label>
+				<input class="form-control" type="text" th:field="*{zip}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}"></small>
 			</div>
 			<div class="form-group">
 				<label for="urbanization">Urbanization*</label>
-				<input class="form-control" type="text" name="urbanization" id="urbanization">
+				<input class="form-control" type="text" th:field="*{urbanization}" th:errorclass="is-invalid">
 			</div>
-			<button class="submit btn primary-color off-white-text">Add User</button>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="radio" value="1" th:field="*{admin}">
+				<label class="form-check-label" for="admin">Admin</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="radio" value="0" th:field="*{admin}">
+				<label class="form-check-label" for="user">User</label>
+			</div>
+			<div>
+			<button class="submit btn primary-color off-white-text btn-block my-2">Add User</button>
+			</div>
 		</form>
+				<button class="submit btn secondary-color off-white-text btn-block my-2" data-toggle="modal" data-target="#cancelModal">Cancel</button>
+			<!-- Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cancel Adding User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        No changes have been save...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="/" type="button" class="btn primary-color off-white-text">Continue</a>
+      </div>
+    </div>
+  </div>
+</div>
 	</div>
 </div>
 
 <div class="edit-user-form" th:fragment="edit-user-form">
  	<div class="container">
 		<h1 class="user-header m-3">Edit User</h1>
-		<form action="#" th:action="@{'/users/edit/' + ${user.userId}}" th:object="${user}" method="post">
+		<form action="#" th:action="@{'/users/edit/'}" th:object="${editForm}" method="post">
 			<div class="form-group">
 				<label for="userId">ID</label>
-				<input class="form-control" type="text" name="userId" id="userId" th:value="${user.userId}" readOnly>
+				<input class="form-control" type="text" th:field=*{userId} th:value="${editForm.userId}" readOnly>
 			</div>
 			<div class="form-group">
 				<label for="firstName">First Name</label>
-				<input class="form-control" type="text" name="firstName" id="firstName" th:value="${user.firstName}">
+				<input class="form-control" type="text" th:field="*{firstName}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></small>
 			</div>
 			<div class="form-group">
 				<label for="lastName">Last Name</label>
-				<input class="form-control" type="text" name="lastName" id="lastName"  th:value="${user.lastName}">
+				<input class="form-control" type="text" th:field="*{lastName}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></small>
 			</div>
 			<div class="form-group">
 				<label for="emailName">Email</label>
-				<input class="form-control" type="email" name="email" id="email"  th:value="${user.email}">
+				<input class="form-control" type="email" name="email" id="email" th:field="*{email}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
 			</div>
 			<div class="form-group">
 				<label for="hashedPassword">Password</label>
-				<input class="form-control" type="password" name="hashedPassword" id="hashedPassword"  th:value="${user.hashedPassword}">
+				<input class="form-control" type="password" th:field="*{password}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>			
 			</div>
-			<div class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" name="admin" id="admin" value="1" th:checked="${user.admin} == true ? true:false">
-				<label class="form-check-label" for="admin">Admin</label>
-			</div>
-			<div class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" name="admin" id="user" value="0" th:checked="${user.admin} != true ? true:false">
-				<label class="form-check-label" for="user">User</label>
-			</div>
-			<button class="submit btn primary-color off-white-text">Next Page</button>
-		</form>
-	</div>
-</div>
-
-<div class="edit-address-form" th:fragment="edit-address-form">
- 	<div class="container">
-		<h1 class="user-header m-3">Edit Address for <span th:text="${user.firstName}"></span></h1>
-		<form action="#" th:action="@{'/users/editAddress/' + ${user.userId}}" th:object="${address}" method="post">
 			<div class="form-group">
 				<label for="address1">Address 1</label>
-				<input class="form-control" type="text" name="address1" id="address1" th:value="${user.address.address1}">
+				<input class="form-control" type="text" th:field="*{address1}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}"></small>
 			</div>
 			<div class="form-group">
 				<label for="address2">Address 2</label>
-				<input class="form-control" type="text" name="address2" id="address2" th:value="${user.address.address2}">
+				<input class="form-control" type="text" th:field="*{address2}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('address2')}" th:errors="*{address2}"></small>
 			</div>
 			<div class="form-group">
 				<label for="city">City</label>
-				<input class="form-control" type="text" name="city" id="city" th:value="${user.address.city}">
+				<input class="form-control" type="text" th:field="*{city}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></small>
 			</div>
 			<div class="form-group">
 				<label for="state">State</label>
-				<input class="form-control" type="text" name="state" id="state" th:value="${user.address.state}">
+				<input class="form-control" type="text" th:field="*{state}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></small>
 			</div>
 			<div class="form-group">
 				<label for="country">Country</label>
-				<input class="form-control" type="text" name="country" id="country" th:value="${user.address.country}">
+				<input class="form-control" type="text" th:field="*{country}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></small>
 			</div>
 			<div class="form-group">
-				<label for="zip">Zip</label>
-				<input class="form-control" type="text" name="zip" id="zip" th:value="${user.address.zip}">
+				<label for="zip">Postal Code/Zip</label>
+				<input class="form-control" type="text" th:field="*{zip}" th:errorclass="is-invalid">
+				<small class="text-danger" th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}"></small>
 			</div>
 			<div class="form-group">
 				<label for="urbanization">Urbanization*</label>
-				<input class="form-control" type="text" name="urbanization" id="urbanization" th:value="${user.address.urbanization}">
+				<input class="form-control" type="text" th:field="*{urbanization}" th:errorclass="is-invalid">
 			</div>
-			<button class="submit btn primary-color off-white-text">Save Changes</button>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="radio" value="1" th:field="*{admin}">
+				<label class="form-check-label" for="admin">Admin</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="radio" value="0" th:field="*{admin}">
+				<label class="form-check-label" for="user">User</label>
+			</div>
+			<div>
+			<button class="submit btn primary-color off-white-text btn-block my-2">Save Changes</button>
+			</div>
 		</form>
+		<button class="submit btn secondary-color off-white-text btn-block my-2" data-toggle="modal" data-target="#cancelModal">Cancel</button>
+			<!-- Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cancel Editing User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        No changes have been save...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="/" type="button" class="btn primary-color off-white-text">Continue</a>
+      </div>
+    </div>
+  </div>
+</div>
 	</div>
+	
 </div>
 </body>
 </html>

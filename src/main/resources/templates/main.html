@@ -18,11 +18,7 @@
 	</div>
 	<div class="col-8" th:insert="~{user :: add-user-form}" th:if="${addUserForm == 'true'}" sec:authorize="hasAuthority('ADMIN')">
 	</div>
-	<div class="col-8" th:insert="~{user :: add-address-form}" th:if="${addAddress == 'true'}" sec:authorize="hasAuthority('ADMIN')">
-	</div>
 	<div class="col-8" th:insert="~{user :: edit-user-form}" th:if="${editUser == 'true'}" sec:authorize="hasAuthority('ADMIN')">
-	</div>
-	<div class="col-8" th:insert="~{user :: edit-address-form}" th:if="${editAddress == 'true'}" sec:authorize="hasAuthority('ADMIN')">
 	</div>
 	<div class="col-8" th:insert="~{donation :: donation-list}" th:if="${donationList == 'true'}" sec:authorize="hasAuthority('ADMIN')">
 	</div>
@@ -38,5 +34,9 @@
 	<div class="col-8" th:insert="~{gift :: gift-cart}" th:if="${cartView == 'true'}" sec:authorize="hasAnyAuthority('USER', 'ADMIN')">
 	</div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -11,7 +11,6 @@
 	<div th:insert="~{header :: header}"></div>
 	<div class="row justify-content-center align-items-center h-100">
 		<form class="p-5 secondary-color" th:action="@{/login}" method="post">
-			<div class="form-group alert alert-info">Please Sign In Again if you have been automatically logged out.</div>
 			<div class="form-group alert alert-warning" th:if="${param.error}">Invalid Username and/or Password.</div>
 			<div class="form-group alert alert-success" th:if="${param.logout}">You have been logged out.</div>
 			<div class="form-group">

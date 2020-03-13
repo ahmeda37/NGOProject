@@ -23,7 +23,7 @@ public class RootController {
 			return "redirect:/login";
 		}
 		if(u.getAdmin()) {
-		return "redirect:/donations";
+		return "redirect:/users";
 		}else {
 			return "redirect:/gifts";
 		}
@@ -31,6 +31,10 @@ public class RootController {
 	
 	@GetMapping("/login")
 	public String login() {
+		MyUser u = getLoggedInUser();
+		if(u != null) {
+			return "redirect:/";
+		}
 		return "login";
 	}
 	

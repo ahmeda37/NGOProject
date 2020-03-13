@@ -1,19 +1,22 @@
 package com.ngo.controller;
 
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
-import com.ngo.model.Address;
+import com.ngo.bean.AddForm;
+import com.ngo.bean.EditForm;
 import com.ngo.model.MyUser;
 import com.ngo.service.UserService;
 
@@ -30,7 +33,6 @@ public class UserController{
 	public String getAllUsers(Model model){
 		model.addAttribute("users", userService.getUsers());
 		model.addAttribute("curUser", getLoggedInUser());
-		model.addAttribute("admin", "true");
 		model.addAttribute("userList", "true");
 		return "main";
 	}
@@ -38,29 +40,27 @@ public class UserController{
 	@GetMapping("/users/add")
 	public String renderAddUser(Model model) {
 		model.addAttribute("curUser", getLoggedInUser());
-		model.addAttribute("admin", "true");
+		model.addAttribute("addForm",new AddForm());
 		model.addAttribute("addUserForm", "true");
 		return "main";
 	}
-	
-	@PostMapping("/users/addAddress/{userId}")
-	public String processAddress(@ModelAttribute Address address, @PathVariable String userId, Model model) {
-		MyUser u = userService.getUserById(Integer.parseInt(userId));
-		u.setAddress(address);
-		userService.updateUser(u);
-		return "redirect:/";
-	}
-	
+
 	@PostMapping("/users/add")
-	public String processUser(@ModelAttribute MyUser user, Model model) {
-		String hashedPassword = encoder.encode(user.getHashedPassword()).toString();
-		user.setHashedPassword(hashedPassword);
+	public String processUser(@Valid AddForm addForm, BindingResult bindingResult, Model model) {
+		MyUser existing = userService.getUserByEmail(addForm.getEmail());		
+		if(bindingResult.hasErrors() || existing != null) {
+			model.addAttribute("curUser", getLoggedInUser());
+			model.addAttribute("addUserForm", "true");
+			if(existing != null) {
+				bindingResult.addError(new FieldError("addUniqueEmail","email","Email Is already used."));
+
+			}
+			return "main";
+		}
+		MyUser user = addForm.setUser();
+		user.setHashedPassword(encoder.encode(user.getHashedPassword()));
 		userService.addUser(user);
-		model.addAttribute("admin", "true");
-		model.addAttribute("user", user);
-		model.addAttribute("curUser", getLoggedInUser());
-		model.addAttribute("addAddress", "true");
-		return "main";
+		return "redirect:/users";
 	}
 	
 	//-----------------------------------------------------------------------------
@@ -68,38 +68,32 @@ public class UserController{
 	@GetMapping("/users/edit/{userId}")
 	public String renderEditUser(@PathVariable String userId, Model model) {
 		MyUser u = userService.getUserById(Long.parseLong(userId));
-		model.addAttribute("admin", "true");
-		model.addAttribute("user", u);
+		EditForm ef = new EditForm();
+		ef.setForm(u);
+		model.addAttribute("editForm", ef);
 		model.addAttribute("curUser", getLoggedInUser());
 		model.addAttribute("editUser", "true");
 		return "main";
 	}
 	
-	@PostMapping("/users/edit/{userId}")
-	public String processEditUser(@ModelAttribute MyUser user, @PathVariable String userId, Model model) {
-		MyUser user1 = userService.getUserById(Long.parseLong(userId));
-		Address a = user1.getAddress();
-		if(!user1.getHashedPassword().equalsIgnoreCase(user.getHashedPassword())) {
-			String hashedPassword = encoder.encode(user.getHashedPassword()).toString();
-			user.setHashedPassword(hashedPassword);	
+	@PostMapping("/users/edit")
+	public String processEditUser(@Valid EditForm editForm, BindingResult bindingResult, Model model) {
+		MyUser user = userService.getUserById(editForm.getUserId());
+		MyUser existing = userService.getUserByEmail(editForm.getEmail());
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("curUser", getLoggedInUser());
+			model.addAttribute("editUser", "true");
+			if(existing != null && !editForm.getEmail().equalsIgnoreCase(user.getEmail())) {
+				bindingResult.addError(new FieldError("addUniqueEmail","email","Email Is already used. Please Enter Pevious or New Email."));
+			}
+			return "main";
+		}else if(existing != null && !editForm.getEmail().equalsIgnoreCase(user.getEmail())) {
+			bindingResult.addError(new FieldError("addUniqueEmail","email","Email Is already used. Please Enter Pevious or New Email."));
+			model.addAttribute("curUser", getLoggedInUser());
+			model.addAttribute("editUser", "true");
+			return "main";
 		}
-		user.setAddress(a);
-		userService.updateUser(user);
-		model.addAttribute("admin", "true");
-		model.addAttribute("user",user);
-		model.addAttribute("curUser", getLoggedInUser());
-		model.addAttribute("editAddress", "true");
-		return "main";
-	}
-	
-	@PostMapping("/users/editAddress/{userId}")
-	public String processEditUser(@ModelAttribute Address address, @PathVariable String userId, Model model) {
-		MyUser u = userService.getUserById(Long.parseLong(userId));
-		u.setAddress(address);
-		userService.updateUser(u);
-		if(!u.getAdmin() && u == getLoggedInUser()) {
-	        SecurityContextHolder.getContext().setAuthentication(null);
-		}
+		userService.updateUser(editForm.getUser(user));
 		return "redirect:/";
 	}
 	
